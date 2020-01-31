@@ -185,6 +185,9 @@ void Rogue::drop() {
 		for (it = sac.begin(); it != sac.end(); it++) {
 			// Afficher les objets, avec l'objet numéroté selected surligné
 		}
+
+		// Parcourir le menu de drop
+
 		int ch = getch();
 		switch(ch) {
 			case KEY_DOWN:
