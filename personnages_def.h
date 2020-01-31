@@ -27,6 +27,8 @@ protected:
 	void interact(Rogue* perso);
 };
 
+
+
 class Rogue {
 public:
 
@@ -45,6 +47,8 @@ public:
 	Rogue();
 	~Rogue();
 	
+	void pickup(Objet* stuff);
+
 };
 
 
