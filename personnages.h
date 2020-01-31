@@ -1,6 +1,6 @@
 #include "personnages_def.h"
-#include <curses.h>
-
+#include <iterator>
+#include <ncurse.h>
 using namespace std;
 
 void potion::interact(Rogue* perso) {
@@ -174,5 +174,22 @@ void Rogue::pickup (Objet* stuff) {
 	} else {
 		cout << "Le sac est plein !" << endl;
 	}
+}
+
+void Rogue::drop() {
+	// Afficher les objets du sac
+	int selected = 0;
+	while (true) {
+		vector<Objet*>::iterator it;
+		for (it = sac.begin(); it != sac.end(); it++) {
+			int i = 0;
+		}
+		int ch = getch()
+		switch(ch) {
+			//unimplemented
+		}
+	}
+
+
 }
 
