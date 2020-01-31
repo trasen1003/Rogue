@@ -3,7 +3,7 @@
 //#include <ncurse.h>
 
 using namespace std;
-
+/*
 void potion::interact(Rogue* perso) {
 		if (regeneration >= (100 - perso->vie)) {
 			perso->vie = 100;
@@ -27,11 +27,12 @@ void armure::interact(Rogue* perso){
 	perso -> esquive = this -> esquive;
 }
 
-Monstre::Monstre(): attaque(2), defense(2), esquive(1), vitesse(1) {};
+
+Monstre::Monstre(vector<vector<int>>* _map): map(_map), attaque(2), defense(2), esquive(1), vitesse(1) {};
 
 Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def), esquive(esq), vitesse(vit) {};	
-
-Rogue::Rogue(): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}), attaque(1), defense(1), esquive(1) {};
+*/
+Rogue::Rogue(vector<vector<int>>* _map, int** pos):position(*pos), vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {};
 
 void Rogue::action(int key){
 
@@ -151,7 +152,7 @@ void Rogue::action(int key){
                 break;
         }
         break;
-		
+/*		
     case 'a':
 		if((*map)[position[0]][position[1]] == 6 && capacite_sac > sac.size()){
 			int i = 0;
@@ -162,7 +163,7 @@ void Rogue::action(int key){
 			(*map)[position[0]][position[1]] = 0;
 		}
 		break;
-    
+*/    
 
     
     default:

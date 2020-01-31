@@ -13,39 +13,36 @@ class Objet {
 
 public:
 
-	Objet();
-	~Objet();
-	
 	virtual void interact(Rogue* perso);
 
 
 };
 
 vector<Objet*> objects;
-
+/*
 class potion : public Objet {
-protected:
+public:
 	int regeneration;
 
 	void interact(Rogue* perso);
 };
 
 class tresor : public Objet {
-protected:
+public:
 	int valeur;
 
 	void interact(Rogue* perso);
 };
 
 class arme : public Objet {
-protected:
+public:
 	int attaque;
 
 	void interact(Rogue* perso);
 };
 
 class armure : public Objet {
-protected:
+public:
 	int defense;
 	int esquive;
 
@@ -66,13 +63,13 @@ public:
 
 	// 
 
-	Monstre();
+	Monstre(vector<vector<int>>* _map);
 	Monstre(int att, int def, int esq, int vit);
 
 	~Monstre();
 	
 };
-
+*/
 class Rogue {
 public:
 
@@ -86,17 +83,16 @@ public:
 	int defense;
 	int esquive;
 	int position[2];
-	arme* _arme;
-	armure* _armure;
+	//arme* _arme;
+	//armure* _armure;
 	vector<vector<int>>* map;
 
 	// Fonctions
 
-	Rogue();
-	~Rogue();
+	Rogue(vector<vector<int>>* _map,int** pos);
 	
 	void pickup(Objet* stuff);
-	void fight(Monstre* opponent);
+	//void fight(Monstre* opponent);
 	void drop();
 	void action(int key);
 };
