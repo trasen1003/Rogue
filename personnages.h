@@ -32,8 +32,144 @@ Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def)
 
 Rogue::Rogue(): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}), attaque(1), defense(1), esquive(1) {};
 
+void Rogue::action(int key){
+	
+    switch (key)
+{
+    case 'z':
+
+        int caseCible = map[position[0]+1][position[1]];
+
+        switch(caseCible){
+            case 0: //vide accessible
+                position[0] += 1;
+				break;
+            case 3: //porte
+                position[0] += 1;
+				break;
+
+			case 4: //couloir
+                position[0] += 1;
+				break;
+			
+			case 5: //escalier
+				position[0] += 1;
+				break;
+
+			case 6: //objet
+                position[0] += 1;
+				break;
+
+            default:
+                break;
+        }
+        break;
+    
+    case 's':
+
+        int caseCible = map[position[0]-1][position[1]];
+
+        switch(caseCible){
+            case 0: //vide accessible
+                position[0] -= 1;
+				break;
+            case 3: //porte
+                position[0] -= 1;
+				break;
+
+			case 4: //couloir
+                position[0] -= 1;
+				break;
+			
+			case 5: //escalier
+				position[0] -= 1;
+				break;
+
+			case 6: //objet
+                position[0] -= 1;
+				break;
+
+            default:
+                break;
+        }
+        break;
+    case 'd':
+
+        int caseCible = map[position[0]][position[1]+1];
+
+        switch(caseCible){
+            case 0: //vide accessible
+                position[1] += 1;
+				break;
+            case 3: //porte
+                position[1] += 1;
+				break;
+
+			case 4: //couloir
+                position[1] += 1;
+				break;
+			
+			case 5: //escalier
+				position[1] += 1;
+				break;
+
+			case 6: //objet
+                position[1] += 1;
+				break;
+
+            default:
+                break;
+        }
+        break;
+    case 'q':
+
+        int caseCible = map[position[0]][position[1]-1];
+
+        switch(caseCible){
+            case 0: //vide accessible
+                position[1] -= 1;
+				break;
+            case 3: //porte
+                position[1] -= 1;
+				break;
+
+			case 4: //couloir
+                position[1] -= 1;
+				break;
+			
+			case 5: //escalier
+				position[1] -= 1;
+				break;
+
+			case 6: //objet
+                position[1] -= 1;
+				break;
+
+            default:
+                break;
+        }
+        break;
+		
+    case 'a':
+		if(map[position[0]][position[1]] == 6 && capacite_sac > sac.size()){
+			int i = 0;
+			while (coordObjects[i][0] != position[0] or coordObjects[i][1] != position[1]){i++;}
+			sac.push_back(objects[i]);
+			coordObjects.erase(coordObjects.begin() + i);
+			objects.erase(objects.begin + i);
+			map[position[0]][position[1]] = 0;
+		}
+		break;
+    
+
+    
+    default:
+        break;
+    }
+}
+
 void Rogue::pickup (Objet* stuff) {
-	if (capacite_sac < sac.size()) {
+	if (capacite_sac > sac.size()) {
 		sac.push_back(stuff);
 	} else {
 		cout << "Le sac est plein !" << endl;
