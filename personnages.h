@@ -176,14 +176,14 @@ void Rogue::pickup (Objet* stuff) {
 	}
 }
 
-/*void Rogue::drop() {
+void Rogue::drop() {
 	// Afficher les objets du sac
 	int selected = 0;
 	int number_objects = sac.size();
 	while (true) {
 		vector<Objet*>::iterator it;
 		for (it = sac.begin(); it != sac.end(); it++) {
-			
+			// Afficher les objets, avec l'objet numéroté selected surligné
 		}
 		int ch = getch();
 		switch(ch) {
@@ -201,5 +201,5 @@ void Rogue::pickup (Objet* stuff) {
 	}
 
 
-}*/
+}
 
