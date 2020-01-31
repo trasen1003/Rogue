@@ -176,7 +176,7 @@ void Rogue::pickup (Objet* stuff) {
 	}
 }
 
-void Rogue::drop() {
+/*void Rogue::drop() {
 	// Afficher les objets du sac
 	int selected = 0;
 	int number_objects = sac.size();
@@ -201,5 +201,5 @@ void Rogue::drop() {
 	}
 
 
-}
+}*/
 
