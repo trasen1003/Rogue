@@ -1,6 +1,6 @@
 #include "personnages_def.h"
 #include <iterator>
-#include <ncurse.h>
+#include <curse.h>
 using namespace std;
 
 void potion::interact(Rogue* perso) {
