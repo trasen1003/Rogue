@@ -2,6 +2,8 @@
 #include <time.h>
 #include <ncurses.h>
 #include <vector>
+#include "personnages_def.h"
+#include "MapDisplay.h"
 using namespace std;
 vector<vector<int>> map = generateur(); //carte des int
 int main(){
