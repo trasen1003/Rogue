@@ -2,18 +2,19 @@
 #include <time.h>
 #include <ncurses.h>
 #include <vector>
-#include "personnages_def.h"
+//#include "personnages_def.h"
+#include "personnages.h"
 #include "MapDisplay.h"
 #include "RandomMapGenerator.h"
 using namespace std;
-vector<vector<int>> map = Generateur(); //carte des int
 int main(){
+	vector<vector<int>> map = Generateur(); //carte des int
 	initscr();
 	noecho();
 	char character;
 	int ref_movement = time(NULL);
 	int ch;
-	Rogue perso = Rogue();
+	Rogue perso = Rogue(&map);
 	vector<vector<char>> grid = display_grid(map); //cart des char
 	while(true){ //boucle principale
 		ch = getch(); //quand une touche est appuyée

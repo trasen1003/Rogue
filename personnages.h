@@ -1,6 +1,6 @@
 #include "personnages_def.h"
 #include <iterator>
-#include <ncurse.h>
+//#include <ncurse.h>
 using namespace std;
 
 void potion::interact(Rogue* perso) {
@@ -33,12 +33,13 @@ Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def)
 Rogue::Rogue(): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}), attaque(1), defense(1), esquive(1) {};
 
 void Rogue::action(int key){
-	
-    switch (key)
+
+    int caseCible;
+    switch ((char)key)
 {
     case 'z':
 
-        int caseCible = map[position[0]+1][position[1]];
+        caseCible = map[position[0]+1][position[1]];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -67,7 +68,7 @@ void Rogue::action(int key){
     
     case 's':
 
-        int caseCible = map[position[0]-1][position[1]];
+        caseCible = map[position[0]-1][position[1]];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -95,7 +96,7 @@ void Rogue::action(int key){
         break;
     case 'd':
 
-        int caseCible = map[position[0]][position[1]+1];
+        caseCible = map[position[0]][position[1]+1];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -123,7 +124,7 @@ void Rogue::action(int key){
         break;
     case 'q':
 
-        int caseCible = map[position[0]][position[1]-1];
+        caseCible = map[position[0]][position[1]-1];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -156,7 +157,7 @@ void Rogue::action(int key){
 			while (coordObjects[i][0] != position[0] or coordObjects[i][1] != position[1]){i++;}
 			sac.push_back(objects[i]);
 			coordObjects.erase(coordObjects.begin() + i);
-			objects.erase(objects.begin + i);
+			objects.erase(objects.begin() + i);
 			map[position[0]][position[1]] = 0;
 		}
 		break;
@@ -185,13 +186,11 @@ void Rogue::drop() {
 		for (it = sac.begin(); it != sac.end(); it++) {
 			int i = 0;
 		}
-		int ch = getch()
-		switch(ch) {
+		int ch = getch();
+		/*switch(ch) {
 			case KEY_DOWN:
 				if (selected == )
 		}
+*/
 	}
-
-
 }
-

@@ -2,8 +2,7 @@
 #include <vector>
 using namespace std;
 
-vector<vector<char>> display_grid (vector<vector<int>> IntMap)
-{
+vector<vector<char>> display_grid (vector<vector<int>> IntMap){
     vector<char> vect(IntMap.size(), ' ');
     vector<vector<char>> StrMap(IntMap[0].size(), vect);
 
