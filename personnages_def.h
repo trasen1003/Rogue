@@ -1,7 +1,6 @@
 # include<iostream>
 # include <vector>
 # include<string> 
-//# include "objets.h"
 
 
 using namespace std;	
@@ -63,6 +62,7 @@ public:
 	int defense;
 	int esquive;
 	int vitesse;
+	vector<vector<int>>* map;
 
 	// 
 
@@ -88,6 +88,7 @@ public:
 	int position[2];
 	arme* _arme;
 	armure* _armure;
+	vector<vector<int>>* map;
 
 	// Fonctions
 

@@ -1,6 +1,7 @@
 #include "personnages_def.h"
 #include <iterator>
 //#include <ncurse.h>
+
 using namespace std;
 
 void potion::interact(Rogue* perso) {
@@ -39,7 +40,7 @@ void Rogue::action(int key){
 {
     case 'z':
 
-        caseCible = map[position[0]+1][position[1]];
+        caseCible = (*map)[position[0]+1][position[1]];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -68,7 +69,7 @@ void Rogue::action(int key){
     
     case 's':
 
-        caseCible = map[position[0]-1][position[1]];
+        caseCible = (*map)[position[0]-1][position[1]];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -96,7 +97,7 @@ void Rogue::action(int key){
         break;
     case 'd':
 
-        caseCible = map[position[0]][position[1]+1];
+        caseCible = (*map)[position[0]][position[1]+1];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -124,7 +125,7 @@ void Rogue::action(int key){
         break;
     case 'q':
 
-        caseCible = map[position[0]][position[1]-1];
+        caseCible = (*map)[position[0]][position[1]-1];
 
         switch(caseCible){
             case 0: //vide accessible
@@ -152,13 +153,13 @@ void Rogue::action(int key){
         break;
 		
     case 'a':
-		if(map[position[0]][position[1]] == 6 && capacite_sac > sac.size()){
+		if((*map)[position[0]][position[1]] == 6 && capacite_sac > sac.size()){
 			int i = 0;
 			while (coordObjects[i][0] != position[0] or coordObjects[i][1] != position[1]){i++;}
 			sac.push_back(objects[i]);
 			coordObjects.erase(coordObjects.begin() + i);
 			objects.erase(objects.begin() + i);
-			map[position[0]][position[1]] = 0;
+			(*map)[position[0]][position[1]] = 0;
 		}
 		break;
     
@@ -177,7 +178,7 @@ void Rogue::pickup (Objet* stuff) {
 	}
 }
 
-void Rogue::drop() {
+/*void Rogue::drop() {
 	// Afficher les objets du sac
 	int selected = 0;
 	int number_objects = sac.size();
@@ -191,6 +192,6 @@ void Rogue::drop() {
 			case KEY_DOWN:
 				if (selected == )
 		}
-*/
+
 	}
-}
+}*/
