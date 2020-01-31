@@ -49,6 +49,26 @@ protected:
 	void interact(Rogue* perso);
 };
 
+class Monstre
+{
+public:
+
+	// Attribut
+
+	int attaque;
+	int defense;
+	int esquive;
+	int vitesse;
+
+	// 
+
+	Monstre();
+	Monstre(int att, int def, int esq, int vit);
+
+	~Monstre();
+	
+};
+
 class Rogue {
 public:
 
@@ -70,7 +90,8 @@ public:
 	~Rogue();
 	
 	void pickup(Objet* stuff);
-
+	void fight(Monstre* opponent);
+	void drop();
 };
 
 
