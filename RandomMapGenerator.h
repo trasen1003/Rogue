@@ -2,11 +2,10 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
-#include "MapDisplay.h"
 using namespace std;
 
 
-vector<vector<int>> Generateur(int nombre_salles, int hauteur_grille, int longueur_grille)
+vector<vector<int>> Generateur(int* pos,int nombre_salles = 4, int hauteur_grille = 50, int longueur_grille = 50)
 {
     // initialisation :
     vector<int> vect(longueur_grille, 0);
@@ -85,7 +84,10 @@ vector<vector<int>> Generateur(int nombre_salles, int hauteur_grille, int longue
                             portes.push_back(posy);
                         }
                     //mise du personnage 
-                    IntMap[x + 1 + rand()%(a-1)][y + 1 + rand()%(b-1)] = 6;
+		    int posH [2] = {x + 1 + rand()%(a-2),y + 1 + rand()%(b-2)};
+		    *pos = posH[0];
+		    *(pos+1) = posH[1];
+                    IntMap[posH[0]][posH[1]] = 6;
                     boolwhile = false;
                 }
 
@@ -275,7 +277,7 @@ vector<vector<int>> Generateur(int nombre_salles, int hauteur_grille, int longue
             }
 return IntMap;
 }
-
+/*
 int main(){
     vector<vector<int>> IntMap =  Generateur(4, 50, 50);
     vector<vector<string>> StrMap = display_grid(IntMap);
@@ -289,3 +291,4 @@ int main(){
     }
     return 0;
 }
+*/

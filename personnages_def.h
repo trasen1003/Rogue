@@ -89,7 +89,7 @@ public:
 
 	// Fonctions
 
-	Rogue(vector<vector<int>>* _map,int** pos);
+	Rogue(vector<vector<int>>* _map,int* pos);
 	
 	void pickup(Objet* stuff);
 	//void fight(Monstre* opponent);

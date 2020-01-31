@@ -32,45 +32,52 @@ Monstre::Monstre(vector<vector<int>>* _map): map(_map), attaque(2), defense(2), 
 
 Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def), esquive(esq), vitesse(vit) {};	
 */
-Rogue::Rogue(vector<vector<int>>* _map, int** pos):position(*pos), vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {};
+Rogue::Rogue(vector<vector<int>>* _map, int* pos): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {
+	position[0] = pos[0];
+	position[1] = pos[1];
+};
 
 void Rogue::action(int key){
 
     int caseCible;
+    //mvprintw(30, 30, "%c",(char) key);
     switch ((char)key)
 {
-    case 'z':
+    case 's':
 
         caseCible = (*map)[position[0]+1][position[1]];
+	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
             case 0: //vide accessible
+
                 position[0] += 1;
-				break;
+		break;
             case 3: //porte
                 position[0] += 1;
-				break;
+		break;
 
-			case 4: //couloir
+	    case 4: //couloir
                 position[0] += 1;
-				break;
+		break;
 			
-			case 5: //escalier
-				position[0] += 1;
-				break;
+	    case 5: //escalier
+		position[0] += 1;
+		break;
 
-			case 6: //objet
+	    case 6: //objet
                 position[0] += 1;
-				break;
+		break;
 
             default:
                 break;
         }
         break;
     
-    case 's':
+    case 'z':
 
         caseCible = (*map)[position[0]-1][position[1]];
+	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
             case 0: //vide accessible
@@ -99,6 +106,7 @@ void Rogue::action(int key){
     case 'd':
 
         caseCible = (*map)[position[0]][position[1]+1];
+	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
             case 0: //vide accessible
@@ -127,6 +135,7 @@ void Rogue::action(int key){
     case 'q':
 
         caseCible = (*map)[position[0]][position[1]-1];
+	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
             case 0: //vide accessible
@@ -169,6 +178,7 @@ void Rogue::action(int key){
     default:
         break;
     }
+    (*map)[position[0]][position[1]] = 6;
 }
 
 void Rogue::pickup (Objet* stuff) {
