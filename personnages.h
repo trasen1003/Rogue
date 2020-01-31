@@ -183,7 +183,7 @@ void Rogue::drop() {
 	while (true) {
 		vector<Objet*>::iterator it;
 		for (it = sac.begin(); it != sac.end(); it++) {
-			int i = 0;
+			
 		}
 		int ch = getch();
 		switch(ch) {
