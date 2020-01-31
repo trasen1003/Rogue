@@ -19,7 +19,7 @@ public:
 };
 
 vector<Objet*> objects;
-/*
+
 class potion : public Objet {
 public:
 	int regeneration;
@@ -69,7 +69,7 @@ public:
 	~Monstre();
 	
 };
-*/
+
 class Rogue {
 public:
 
