@@ -8,6 +8,10 @@ using namespace std;
 
 class Rogue;
 
+vector<vector<int>> map;
+vector<int[2]> coordObjects;
+vector<Objet*> objects;
+
 class Objet {
 
 public:
@@ -81,6 +85,7 @@ public:
 	int attaque;
 	int defense;
 	int esquive;
+	int position[2];
 	arme* _arme;
 	armure* _armure;
 
@@ -92,6 +97,7 @@ public:
 	void pickup(Objet* stuff);
 	void fight(Monstre* opponent);
 	void drop();
+	void action(int key);
 };
 
 
