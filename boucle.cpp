@@ -4,8 +4,9 @@
 #include <vector>
 #include "personnages_def.h"
 #include "MapDisplay.h"
+#include "RandomMapGenerator.h"
 using namespace std;
-vector<vector<int>> map = generateur(); //carte des int
+vector<vector<int>> map = Generateur(); //carte des int
 int main(){
 	initscr();
 	noecho();
@@ -13,7 +14,7 @@ int main(){
 	int ref_movement = time(NULL);
 	int ch;
 	Rogue perso = Rogue();
-	grid = display_grid(map) //cart des char
+	vector<vector<char>> grid = display_grid(map); //cart des char
 	while(true){ //boucle principale
 		ch = getch(); //quand une touche est appuyée
 		perso.action(ch); //faire action
