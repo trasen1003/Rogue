@@ -27,7 +27,27 @@ protected:
 	void interact(Rogue* perso);
 };
 
+class tresor : public Objet {
+protected:
+	int valeur;
 
+	void interact(Rogue* perso);
+};
+
+class arme : public Objet {
+protected:
+	int attaque;
+
+	void interact(Rogue* perso);
+};
+
+class armure : public Objet {
+protected:
+	int defense;
+	int esquive;
+
+	void interact(Rogue* perso);
+};
 
 class Rogue {
 public:
@@ -41,6 +61,8 @@ public:
 	int attaque;
 	int defense;
 	int esquive;
+	arme* _arme;
+	armure* _armure;
 
 	// Fonctions
 
