@@ -8,9 +8,7 @@ using namespace std;
 
 class Rogue;
 
-vector<vector<int>> map;
 vector<int[2]> coordObjects;
-vector<Objet*> objects;
 
 class Objet {
 
@@ -23,6 +21,9 @@ public:
 
 
 };
+
+vector<Objet*> objects;
+
 
 class potion : public Objet {
 protected:

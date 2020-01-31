@@ -176,20 +176,30 @@ void Rogue::pickup (Objet* stuff) {
 	}
 }
 
-void Rogue::drop() {
+/*void Rogue::drop() {
 	// Afficher les objets du sac
 	int selected = 0;
+	int number_objects = sac.size();
 	while (true) {
 		vector<Objet*>::iterator it;
 		for (it = sac.begin(); it != sac.end(); it++) {
-			int i = 0;
+			
 		}
-		int ch = getch()
+		int ch = getch();
 		switch(ch) {
-			//unimplemented
+			case KEY_DOWN:
+				selected += 1;
+				if (selected == number_objects) {
+					selected = 0;
+				} 
+			case KEY_UP:
+				selected -= 1;
+				if (selected == -1) {
+					selected = number_objects -1;
+				}
 		}
 	}
 
 
-}
+}*/
 
