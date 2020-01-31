@@ -5,10 +5,13 @@ using namespace std;
 
 vector<vector<string>> display_grid (vector<vector<int>> IntMap)
 {
-    vector<vector<string>> StrMap;
-    for (int i = 0; i< IntMap.size(); ++i)
+    vector<string> vect(IntMap.size(), " ");
+    vector<vector<string>> StrMap(IntMap[0].size(), vect);
+
+    for (int i = 0; i< IntMap.size(); i++)
     {
-        for (int j = 0; j<IntMap[0].size(); ++j)
+        for (int j = 0; j<IntMap[0].size(); j++){
+
             switch(IntMap[i][j])
             {
                 case -1: // case vide non accessible
@@ -42,6 +45,7 @@ vector<vector<string>> display_grid (vector<vector<int>> IntMap)
                     StrMap[i][j] = "*";
                     break;
             }
+        }
     }
     return StrMap;
 }
