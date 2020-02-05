@@ -45,8 +45,8 @@ void print(double haha) {
 
 
 void print_M(vector<vector<int>>* M){
-	for (int i = 0; i < M -> size(); i++) {
-		for (int j = 0; j < (M -> at(0)).size(); j++){
+	for (int i = 0; i < (int) M -> size(); i++) {
+		for (int j = 0; j < (int) (M -> at(0)).size(); j++){
 			cout << (M-> at(i))[j] << " ";
 		}
 		cout << endl;
@@ -54,8 +54,8 @@ void print_M(vector<vector<int>>* M){
 }
 
 void print_M(vector<vector<bool>>* M){
-	for (int i = 0; i < M -> size(); i++) {
-		for (int j = 0; j < (M -> at(0)).size(); j++){
+	for (int i = 0; i < (int) M -> size(); i++) {
+		for (int j = 0; j < (int) (M -> at(0)).size(); j++){
 			cout << (M-> at(i))[j] << " ";
 		}
 		cout << endl;
@@ -71,6 +71,7 @@ void print_room(room _room) {
 	print("The room is :");
 	print_P(_room.begin);
 	print_P(_room.end);
+	print(_room.revealed);
 }
 
 point random_point(int max_x, int max_y) {
@@ -129,19 +130,19 @@ to_extract find_extract(vector<vector<int>>* grid) {
 	}
 	vector<int> column_begin;
 	vector<int> column_end;
-	for (int i = 0; i < grid -> size(); i++) {
+	for (int i = 0; i < (int) grid -> size(); i++) {
 		column_begin.push_back((grid -> at(i))[j1 + 1]);
 		column_end.push_back((grid -> at(i))[grid -> size() -j2 -2]);		
 	}
 	while(all_of(column_begin.begin(), column_begin.end(), [](int i){return i == 0;}) ){
 		j1++;
-		for (int i = 0; i < grid -> size(); i++) {
+		for (int i = 0; i < (int) grid -> size(); i++) {
 			column_begin.push_back((grid -> at(i))[j1 + 1]);
 		}	
 	}
 	while(all_of(column_end.begin(), column_end.end(), [](int i){return i == 0;}) ){
 		j2++;
-		for (int i = 0; i < grid -> size(); i++) {
+		for (int i = 0; i < (int) grid -> size(); i++) {
 			column_end.push_back((grid -> at(i))[grid -> size() -j2 -2]);		
 		}
 	}
@@ -154,9 +155,25 @@ vector<vector<int>> extract(to_extract ex, vector<vector<int>>* grid) {
 	int j1 = ex.j1;
 	int j2 = ex.j2;	
 	vector<vector<int>> exctracted;
-	for (int i = i1; i < grid -> size() - i2; i++){
+	for (int i = i1; i < (int) grid -> size() - i2; i++){
 		vector<int> line;
-		for (int j = j1; j < (grid -> at(0)).size() - j2; j++) {
+		for (int j = j1; j < (int) (grid -> at(0)).size() - j2; j++) {
+			line.push_back((grid -> at(i))[j]);
+		}
+		exctracted.push_back(line);
+	}
+	return exctracted;
+}
+
+vector<vector<bool>> extract(to_extract ex, vector<vector<bool>>* grid) {
+	int i1 = ex.i1;
+	int i2 = ex.i2;
+	int j1 = ex.j1;
+	int j2 = ex.j2;	
+	vector<vector<bool>> exctracted;
+	for (int i = i1; i < (int) grid -> size() - i2; i++){
+		vector<bool> line;
+		for (int j = j1; j < (int) (grid -> at(0)).size() - j2; j++) {
 			line.push_back((grid -> at(i))[j]);
 		}
 		exctracted.push_back(line);
@@ -180,15 +197,15 @@ bool room_is_good(point begin, point end, vector<vector<bool>>* Good_for_room, v
 }
 
 bool find_in(point reached, room _room){
-	bool in = reached.x <= _room.end.x && _room.begin.x <= reached.x && _room.end.y <= reached.y && reached.y <= _room.begin.y;
+	bool in = (reached.x <= _room.end.x && _room.begin.x <= reached.x && _room.begin.y <= reached.y && reached.y <= _room.end.y );
 	if (in) {
-		if (reached.x == _room.begin.x && reached.y == _room.end.y) {
+		if (reached.x == _room.begin.x && reached.y == _room.end.y ) {
 			return false;
-		} else if (reached.x == _room.begin.x && reached.y == _room.end.y) {
+		} else if (reached.x == _room.begin.x && reached.y == _room.begin.y) {
 			return false;
-		} else if (reached.y == _room.begin.y && reached.x == _room.end.x) {
+		} else if (reached.y == _room.end.x && reached.x == _room.end.y ) {
 			return false;
-		} else if (reached.y == _room.end.y && reached.x == _room.begin.x) {
+		} else if (reached.y == _room.end.x && reached.x == _room.begin.y) {
 			return false;
 		} else {
 			return true;
@@ -200,7 +217,7 @@ bool find_in(point reached, room _room){
 
 int find_indice(point reached, vector<room>* rooms) {
 	int indice = -1;
-	for (int k = 0; k < rooms -> size(); k++) {
+	for (int k = 0; k < (int) rooms -> size(); k++) {
 		if (find_in(reached, (*rooms)[k])) {
 			indice = k;
 		}
@@ -320,7 +337,7 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 	point new_door {-1, -1};
 	for (int x = min(new_room.begin.x, new_room.end.x); x < max(new_room.begin.x, new_room.end.x); x++) {
 		for (int y = min(new_room.begin.y, new_room.end.y); y < max(new_room.end.y,new_room.begin.y); y++) {
-			if (x < 0 || x >= Good_for_room -> size() || y < 0 || y >= (Good_for_room -> at(0)).size()) {
+			if (x < 0 || x >= (int) Good_for_room -> size() || y < 0 || y >= (int) (Good_for_room -> at(0)).size()) {
 				return point {-1, -1};
 			} else if (((grid->at(x))[y] == 5)) {
 				if ((x == new_room.begin.x && y == new_room.begin.y) || (x == new_room.begin.x && y == new_room.end.y -1) 
@@ -366,16 +383,12 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 		point door {0, 0};
 		int previous_value = 0;
 		for (int essai_porte = 0; essai_porte < 30; essai_porte++) {
-			if (essai_porte != 0){
-				(grid -> at(door.x))[door.y] = previous_value;
-			}
 			int total = random_int(2*abs(new_room.begin.x - new_room.end.x) + 2*abs(new_room.begin.y - new_room.end.y) - 5);
 			int incr = 0;
 			for (int x = min(new_room.begin.x, new_room.end.x); x < max(new_room.begin.x, new_room.end.x); x++) {
 				for (int y = min(new_room.begin.y, new_room.end.y); y < max(new_room.end.y,new_room.begin.y); y++) {
 					if ((grid -> at(x))[y] == 2 || (grid -> at(x))[y] == 3) {
 						if (incr == total) {
-							(grid -> at(x))[y] = 4;
 							door = {x, y};
 							incr++;
 							if ((grid -> at(x))[y] == 2) {
@@ -383,6 +396,7 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 							} else {
 								previous_value = 3;
 							}
+							(grid -> at(x))[y] = 4;
 						} else {
 							incr++;
 						}
@@ -422,7 +436,7 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 				} else {
 					len_y = random_int(min(6, door.y - 4)) + 4;
 				}
-				if (len_x + door.x >= (Good_for_room -> size()) - 5 || len_y + door.y >= (Good_for_room -> at(0)).size() - 5 
+				if (len_x + door.x >= (int) (Good_for_room -> size()) - 5 || len_y + door.y >= (int) (Good_for_room -> at(0)).size() - 5 
 					|| -len_x + door.x < 2 || -len_y + door.y < 2){
 					continue;
 				} 
@@ -447,6 +461,8 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 					continue;
 				}
 			}
+			(grid -> at(door.x))[door.y] = previous_value;
+
 		}
 	}
 	return point {-1, -1};
@@ -457,7 +473,7 @@ point make_room (point begin, vector<vector<bool>>* Good_for_room, vector<vector
 		point end = random_point(min((int)((Good_for_room -> at(0)).size()) - begin.x-2,8), min((int)(Good_for_room -> size()) - begin.y -2 ,8));
 		end.x += 4 + begin.x;
 		end.y += 4 + begin.y;
-		if ((end.x >= Good_for_room -> size()) || (end.y >= (Good_for_room -> at(0)).size())){
+		if ((end.x >= (int) Good_for_room -> size()) || (end.y >= (int) (Good_for_room -> at(0)).size())){
 			continue;
 		}
 		if (room_is_good(begin, end, Good_for_room, grid)) {
@@ -535,27 +551,80 @@ setup create_map(int stage) {
 	return setup {grid, Matrix_revealed, rooms, true};
 }
 
-void add_personage_and_stairs(vector<vector<int>>* grid, vector<room>* rooms) {
-	int number_room_begin = random_int(rooms -> size()) - 1;
+void add_personage_and_stairs(vector<vector<int>>* grid, vector<room>* rooms, point* pos) {
+	int number_room_begin = random_int((int) rooms -> size()) - 1;
 	room room_begin = rooms -> at(number_room_begin);
+	room_begin.revealed = true;
 	(grid -> at(room_begin.begin.x + 1))[room_begin.begin.y + 1] = 8;
-	int number_room_end = random_int(rooms -> size()) - 1;
+	*pos = {room_begin.begin.x + 1, room_begin.begin.y + 1};
+	int number_room_end = random_int((int) rooms -> size()) - 1;
 	while ((number_room_end - number_room_begin) == 0) {
-		number_room_end = random_int(rooms -> size()) - 1;
+		number_room_end = random_int((int) rooms -> size()) - 1;
 	}
 	room room_end = rooms -> at(number_room_end);
 	(grid -> at(room_end.end.x - 2))[room_end.end.y - 2] = 7;
 }
 
-setup setup_map(int stage) {
+void re_index(int i, int j, point* pos, vector<room>* rooms){
+	(*pos).x -= i;
+	(*pos).y -= j;
+	for(int k = 0; k < (int) rooms -> size(); k++){
+		(rooms -> at(k)).begin.x -= i;
+		(rooms -> at(k)).begin.y -= j;
+		(rooms -> at(k)).end.x -= i;
+		(rooms -> at(k)).end.y -= j;
+	}
+}
+
+int find_room(point position, vector<room>* rooms){
+	vector<room>::iterator it;
+	int number = 0;
+	//print_P(position);
+	for (it = (*rooms).begin(); it != (*rooms).end(); it++) {
+		//print_room(*it);
+		if (find_in(position,*it)) {
+			if ((*it).revealed){
+				return -1;
+			} else {
+				(*it).revealed = true;
+				return number;
+			}
+		}
+		number++;
+	}
+	return -2;
+}
+
+void update_revealed_point(vector<vector<bool>>* Matrix_revealed, point position) {
+	(*Matrix_revealed)[position.x][position.y] = true;
+}
+
+void update_revealed_room(vector<vector<bool>>* Matrix_revealed, vector<room>* rooms, int number) {
+	room to_reveal = (*rooms)[number];
+	for (int i = to_reveal.begin.x; i < to_reveal.end.x ; i++){
+		for (int j = to_reveal.begin.y; j < to_reveal.end.y; j++){
+			(*Matrix_revealed)[i][j] = true;
+		}
+	}
+}
+
+setup setup_map(int stage, point* pos) {
 	setup _setup {vector<vector<int>> {}, vector<vector<bool>> {}, vector<room> {}, false};
 	while (not _setup.it_worked){
 		_setup = create_map(stage);
 	}
 	vector<vector<int>> grid = _setup.map;
 	vector<room> rooms = _setup.rooms;
-	add_personage_and_stairs(&grid, &rooms);
-	_setup.map = extract(find_extract(&grid), &grid);
+	add_personage_and_stairs(&grid, &rooms, pos);
+	to_extract infos = find_extract(&grid);
+	int i = infos.i1;
+	int j = infos.j1;
+	re_index(i, j, pos, &rooms);
+	_setup.rooms = rooms;
+	_setup.Matrix_revealed = extract(infos, &_setup.Matrix_revealed);
+	_setup.map = extract(infos, &grid);
+	int number_room_begin = find_room(*pos, &_setup.rooms);
+	update_revealed_room(&_setup.Matrix_revealed, &_setup.rooms, number_room_begin);
 	print_M(&_setup.map);
 	cout << "number of room : " << _setup.rooms.size() << endl; 
 	return _setup;

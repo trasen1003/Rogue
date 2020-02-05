@@ -32,37 +32,54 @@ Monstre::Monstre(vector<vector<int>>* _map): map(_map), attaque(2), defense(2), 
 
 Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def), esquive(esq), vitesse(vit) {};	
 */
-Rogue::Rogue(vector<vector<int>>* _map, int* pos): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {
-	position[0] = pos[0];
-	position[1] = pos[1];
+Rogue::Rogue(vector<vector<int>>* _map, point pos): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {
+	position.x = pos.x;
+	position.y = pos.y;
 };
 
-void Rogue::action(int key){
+void Rogue::action(int key, int* temp, vector<room>* rooms, vector<vector<bool>>* Matrix_revealed){
 
     int caseCible;
     //mvprintw(30, 30, "%c",(char) key);
     switch ((char)key)
 {
+   	int number;
     case 's':
-
-        caseCible = (*map)[position[0]+1][position[1]];
-	(*map)[position[0]][position[1]] = 0;
-
+        caseCible = (*map)[position.x+1][position.y];
+        if (caseCible != 1 && caseCible != 4 && caseCible != 5 && caseCible != 7 && caseCible != 10){
+        	break;
+        }
+		(*map)[position.x][position.y] = *temp;
+        *temp = caseCible;
         switch(caseCible){
             case 1: //vide accessible
-                position[0] += 1;
+                position.x += 1;
 				break;
             case 4: //porte
-                position[0] += 1;
+                position.x += 1;
+                number = find_room(position, rooms);
+                if (number != -1){
+            		update_revealed_room(Matrix_revealed, rooms, number);
+                }
+                for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
-	    case 5: //couloir
-                position[0] += 1;
+		    case 5: //couloir
+                position.x += 1;
+               	for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
-	    case 7: //escalier
-				position[0] += 1;
+		    case 7: //escalier
+				position.x += 1;
 				break;
-	    case 10: //objet
-                position[0] += 1;
+		    case 10: //objet
+                position.x += 1;
 				break;
             default:
                 break;
@@ -70,57 +87,92 @@ void Rogue::action(int key){
         break;
     
     case 'z':
-
-        caseCible = (*map)[position[0]-1][position[1]];
-	(*map)[position[0]][position[1]] = 0;
+        caseCible = (*map)[position.x-1][position.y];
+        if (caseCible != 1 && caseCible != 4 && caseCible != 5 && caseCible != 7 && caseCible != 10){
+        	break;
+        }
+		(*map)[position.x][position.y] = *temp;
+        *temp = caseCible;
 
         switch(caseCible){
             case 1: //vide accessible
-                position[0] -= 1;
+                position.x -= 1;
 				break;
             case 4: //porte
-                position[0] -= 1;
+                position.x -= 1;
+            	number = find_room(position, rooms);
+            	if (number != -1){
+            		update_revealed_room(Matrix_revealed, rooms, number);
+                }
+                for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 
 			case 5: //couloir
-                position[0] -= 1;
+                position.x -= 1;
+				for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 			
 			case 7: //escalier
-				position[0] -= 1;
+				position.x -= 1;
 				break;
 
 			case 10: //objet
-                position[0] -= 1;
+                position.x -= 1;
 				break;
 
             default:
                 break;
         }
         break;
-    case 'd':
 
-        caseCible = (*map)[position[0]][position[1]+1];
-	(*map)[position[0]][position[1]] = 0;
+    case 'd':
+        caseCible = (*map)[position.x][position.y+1];
+        if (caseCible != 1 && caseCible != 4 && caseCible != 5 && caseCible != 7 && caseCible != 10){
+        	break;
+        }
+		(*map)[position.x][position.y] = *temp;
+        *temp = caseCible;
 
         switch(caseCible){
             case 1: //vide accessible
-                position[1] += 1;
+                position.y += 1;
 				break;
             case 4: //porte
-                position[1] += 1;
+                position.y += 1;
+           		number = find_room(position, rooms);
+            	if (number != -1) {
+            		update_revealed_room(Matrix_revealed, rooms, number);
+                } 
+                for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 
 			case 5: //couloir
-                position[1] += 1;
+                position.y += 1;
+				for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 			
 			case 7: //escalier
-				position[1] += 1;
+				position.y += 1;
 				break;
 
 			case 10: //objet
-                position[1] += 1;
+                position.y += 1;
 				break;
 
             default:
@@ -128,28 +180,46 @@ void Rogue::action(int key){
         }
         break;
     case 'q':
-
-        caseCible = (*map)[position[0]][position[1]-1];
-	(*map)[position[0]][position[1]] = 0;
+        caseCible = (*map)[position.x][position.y-1];
+        if (caseCible != 1 && caseCible != 4 && caseCible != 5 && caseCible != 7 && caseCible != 10){
+        	break;
+        }
+		(*map)[position.x][position.y] = *temp;
+        *temp = caseCible;
 
         switch(caseCible){
             case 1: //vide accessible
-                position[1] -= 1;
+                position.y -= 1;
 				break;
             case 4: //porte
-                position[1] -= 1;
+                position.y -= 1;
+                //print_P(position);
+                number = find_room(position, rooms);
+            	if (number != -1){
+            		update_revealed_room(Matrix_revealed, rooms, number);
+                } 
+                for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 
 			case 5: //couloir
-                position[1] -= 1;
+                position.y -= 1;
+				for (int i = -1; i < 2; i++) {
+			    	for (int j = -1; j < 2; j++){
+			    		(*Matrix_revealed)[position.x + i][position.y + j] = true;
+			    	}
+			    }
 				break;
 			
 			case 7: //escalier
-				position[1] -= 1;
+				position.y -= 1;
 				break;
 
 			case 10: //objet
-                position[1] -= 1;
+                position.y -= 1;
 				break;
 
             default:
@@ -158,13 +228,13 @@ void Rogue::action(int key){
         break;
 /*		
     case 'a':
-		if((*map)[position[0]][position[1]] == 6 && capacite_sac > sac.size()){
+		if((*map)[position.x][position.y] == 6 && capacite_sac > sac.size()){
 			int i = 0;
-			while (coordObjects[i][0] != position[0] or coordObjects[i][1] != position[1]){i++;}
+			while (coordObjects[i].x != position.x or coordObjects[i].y != position.y){i++;}
 			sac.push_back(objects[i]);
 			coordObjects.erase(coordObjects.begin() + i);
 			objects.erase(objects.begin() + i);
-			(*map)[position[0]][position[1]] = 0;
+			(*map)[position.x][position.y] = 0;
 		}
 		break;
 */    
@@ -173,11 +243,11 @@ void Rogue::action(int key){
     default:
         break;
     }
-    (*map)[position[0]][position[1]] = 8;
+    (*map)[position.x][position.y] = 8;
 }
 
 void Rogue::pickup (Objet* stuff) {
-	if (capacite_sac > sac.size()) {
+	if ((int)capacite_sac > (int)sac.size()) {
 		sac.push_back(stuff);
 	} else {
 		cout << "Le sac est plein !" << endl;

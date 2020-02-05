@@ -3,13 +3,13 @@
 using namespace std;
 
 vector<vector<char>> display_grid (vector<vector<int>> IntMap){
-    vector<char> vect(IntMap.size(), ' ');
-    vector<vector<char>> StrMap(IntMap[0].size(), vect);
+    vector<char> vect(IntMap[0].size(), ' ');
+    vector<vector<char>> StrMap(IntMap.size(), vect);
 
-    for (int i = 0; i< IntMap.size(); i++)
+    for (int i = 0; i< (int)IntMap.size(); i++)
     {
-        for (int j = 0; j<IntMap[0].size(); j++){
-
+        for (int j = 0; j< (int)IntMap[0].size(); j++){
+            //cout << "i is : " << i << " and j is : " << j << endl;
             switch(IntMap[i][j])
             {
                 case 0: // case vide non accessible
@@ -31,7 +31,7 @@ vector<vector<char>> display_grid (vector<vector<int>> IntMap){
                     StrMap[i][j] = '#';
                     break;
                 case 6: // coin 
-                    StrMap[i][j] = '+';
+                    StrMap[i][j] = '/';
                     break;
                 case 7: // passage au niveau suivant 
                     StrMap[i][j] = '=';

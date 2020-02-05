@@ -83,7 +83,7 @@ all: $(TARGET)
 # éviter de la redondance de code on indiquera comment de manière
 # globale passer d'un .cpp à un .o sans le faire pour chacun des .cpp.
 
-boucle.o: boucle.cpp RandomMapGenerator.h personnages_def.h personnages.h actions_rogue.h MapDisplay.h
+boucle.o: boucle.cpp gen_carte.h personnages_def.h personnages.h actions_rogue.h MapDisplay.h
 # ou main.o: main.cpp intlist.h intnode.h ?
 # voir la discussion dans intlist.h
 

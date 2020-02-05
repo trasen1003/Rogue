@@ -1,13 +1,15 @@
 # include<iostream>
 # include <vector>
 # include<string> 
-
+# include "gen_carte.h"
 
 using namespace std;	
 
+struct point;
+
 class Rogue;
 
-vector<int[2]> coordObjects;
+vector<point> coordObjects;
 
 class Objet {
 
@@ -82,19 +84,19 @@ public:
 	int attaque;
 	int defense;
 	int esquive;
-	int position[2];
+	point position;
 	//arme* _arme;
 	//armure* _armure;
 	vector<vector<int>>* map;
 
 	// Fonctions
 
-	Rogue(vector<vector<int>>* _map,int* pos);
+	Rogue(vector<vector<int>>* _map,point pos);
 	
 	void pickup(Objet* stuff);
 	//void fight(Monstre* opponent);
 	void drop();
-	void action(int key);
+	void action(int key,int* temp, vector<room>* rooms, vector<vector<bool>>* Matrix_revealed);
 };
 
 
