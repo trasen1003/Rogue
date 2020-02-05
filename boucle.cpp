@@ -5,11 +5,14 @@
 //#include "personnages_def.h"
 #include "personnages.h"
 #include "MapDisplay.h"
-#include "RandomMapGenerator.h"
+// #include "RandomMapGenerator.h" 
+#include <gen_carte.h>
 using namespace std;
 int main(){
 	int pos [2] = {0,0};
-	vector<vector<int>> map = Generateur(&pos[0]); //carte des int
+	//vector<vector<int>> map = Generateur(&pos[0]); //carte des int
+	setup set = setup_map(3);
+	vector<vector<int>> map = set.map;
 	cout << "genere" << endl;
 	initscr();
 	noecho();
