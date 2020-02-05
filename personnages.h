@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void potion::interact(Rogue* perso) {
+/*void potion::interact(Rogue* perso) {
 		if (regeneration >= (100 - perso->vie)) {
 			perso->vie = 100;
 		} else {
@@ -31,7 +31,7 @@ void armure::interact(Rogue* perso){
 Monstre::Monstre(vector<vector<int>>* _map): map(_map), attaque(2), defense(2), esquive(1), vitesse(1) {};
 
 Monstre::Monstre(int att, int def, int esq, int vit): attaque(att), defense(def), esquive(esq), vitesse(vit) {};	
-
+*/
 Rogue::Rogue(vector<vector<int>>* _map, int* pos): vie(100), argent(0), capacite_sac(5), sac(vector<Objet*> {}),map(_map), attaque(1), defense(1), esquive(1) {
 	position[0] = pos[0];
 	position[1] = pos[1];
@@ -49,26 +49,21 @@ void Rogue::action(int key){
 	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
-            case 0: //vide accessible
-
+            case 1: //vide accessible
                 position[0] += 1;
-		break;
-            case 3: //porte
+				break;
+            case 4: //porte
                 position[0] += 1;
-		break;
-
-	    case 4: //couloir
+				break;
+	    case 5: //couloir
                 position[0] += 1;
-		break;
-			
-	    case 5: //escalier
-		position[0] += 1;
-		break;
-
-	    case 6: //objet
+				break;
+	    case 7: //escalier
+				position[0] += 1;
+				break;
+	    case 10: //objet
                 position[0] += 1;
-		break;
-
+				break;
             default:
                 break;
         }
@@ -80,22 +75,22 @@ void Rogue::action(int key){
 	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
-            case 0: //vide accessible
+            case 1: //vide accessible
                 position[0] -= 1;
 				break;
-            case 3: //porte
+            case 4: //porte
                 position[0] -= 1;
 				break;
 
-			case 4: //couloir
+			case 5: //couloir
                 position[0] -= 1;
 				break;
 			
-			case 5: //escalier
+			case 7: //escalier
 				position[0] -= 1;
 				break;
 
-			case 6: //objet
+			case 10: //objet
                 position[0] -= 1;
 				break;
 
@@ -109,22 +104,22 @@ void Rogue::action(int key){
 	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
-            case 0: //vide accessible
+            case 1: //vide accessible
                 position[1] += 1;
 				break;
-            case 3: //porte
+            case 4: //porte
                 position[1] += 1;
 				break;
 
-			case 4: //couloir
+			case 5: //couloir
                 position[1] += 1;
 				break;
 			
-			case 5: //escalier
+			case 7: //escalier
 				position[1] += 1;
 				break;
 
-			case 6: //objet
+			case 10: //objet
                 position[1] += 1;
 				break;
 
@@ -138,22 +133,22 @@ void Rogue::action(int key){
 	(*map)[position[0]][position[1]] = 0;
 
         switch(caseCible){
-            case 0: //vide accessible
+            case 1: //vide accessible
                 position[1] -= 1;
 				break;
-            case 3: //porte
+            case 4: //porte
                 position[1] -= 1;
 				break;
 
-			case 4: //couloir
+			case 5: //couloir
                 position[1] -= 1;
 				break;
 			
-			case 5: //escalier
+			case 7: //escalier
 				position[1] -= 1;
 				break;
 
-			case 6: //objet
+			case 10: //objet
                 position[1] -= 1;
 				break;
 
@@ -178,7 +173,7 @@ void Rogue::action(int key){
     default:
         break;
     }
-    (*map)[position[0]][position[1]] = 6;
+    (*map)[position[0]][position[1]] = 8;
 }
 
 void Rogue::pickup (Objet* stuff) {

@@ -2,8 +2,8 @@
 #include <time.h>
 #include <ncurses.h>
 #include <vector>
-#include "personnages_def.h"
-//#include "personnages.h"
+//#include "personnages_def.h"
+#include "personnages.h"
 #include "MapDisplay.h"
 // #include "RandomMapGenerator.h" 
 #include "gen_carte.h"
