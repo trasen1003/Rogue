@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <chrono>
 # include <algorithm>
+
 using namespace std;
 
 struct to_extract{
@@ -534,7 +535,7 @@ setup setup_map(int stage) {
 	}
 	vector<vector<int>> grid = _setup.map;
 	vector<room*> rooms = _setup.rooms;
-	/*print(rooms.size());
+	print(rooms.size());
 	int number_room_begin = random_int(rooms.size()) - 1;
 	print("h1");
 	room room_begin = *(rooms[number_room_begin]);
@@ -551,7 +552,7 @@ setup setup_map(int stage) {
 	room room_end = *(rooms[number_room_end]);
 	print_P(room_end.begin);
 	_setup.map[room_end.end.x - 1][room_end.end.y - 1] = 8;
-	print("h4");*/	
+	print("h4");
 	_setup.map = extract(find_extract(&grid), &grid);
 	print_M(&_setup.map);
 	cout << "number of room : " << _setup.rooms.size() << endl; 
