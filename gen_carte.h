@@ -31,7 +31,7 @@ struct room{
 struct setup {
 	vector<vector<int>> map;
 	vector<vector<bool>> Matrix_revealed;
-	vector<room*> rooms;
+	vector<room> rooms;
 	bool it_worked;
 };
 
@@ -42,6 +42,7 @@ void print(string haha){
 void print(double haha) {
 	cout << haha << endl;
 }
+
 
 void print_M(vector<vector<int>>* M){
 	for (int i = 0; i < M -> size(); i++) {
@@ -64,6 +65,12 @@ void print_M(vector<vector<bool>>* M){
 void print_P(point P){
 	cout << "x is :" << P.x << endl;
 	cout << "y is :" << P.y << endl;
+}
+
+void print_room(room _room) {
+	print("The room is :");
+	print_P(_room.begin);
+	print_P(_room.end);
 }
 
 point random_point(int max_x, int max_y) {
@@ -191,17 +198,17 @@ bool find_in(point reached, room _room){
 	}
 }
 
-int find_indice(point reached, vector<room*>* rooms) {
+int find_indice(point reached, vector<room>* rooms) {
 	int indice = -1;
 	for (int k = 0; k < rooms -> size(); k++) {
-		if (find_in(reached, *((*rooms)[k]))) {
+		if (find_in(reached, (*rooms)[k])) {
 			indice = k;
 		}
 	}
 	return indice;
 }
 
-point try_add_path(vector<point> path, vector<vector<bool>>* matrix_con, vector<room*>* rooms, vector<vector<int>>* grid) {
+point try_add_path(vector<point> path, vector<vector<bool>>* matrix_con, vector<room>* rooms, vector<vector<int>>* grid) {
 	vector<point>::iterator it;
 	for (it = path.begin(); it != path.end(); it++){
 		int i = (*it).x;
@@ -309,7 +316,7 @@ vector<point> compute_path(point door,int main_dir,int  dir_x,int  dir_y,int len
 	return path;
 }
 
-point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<int>>* grid, room& new_room, vector<vector<bool>>* matrix_con, vector<room*>* rooms, bool make_path) {
+point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<int>>* grid, room& new_room, vector<vector<bool>>* matrix_con, vector<room>* rooms, bool make_path) {
 	point new_door {-1, -1};
 	for (int x = min(new_room.begin.x, new_room.end.x); x < max(new_room.begin.x, new_room.end.x); x++) {
 		for (int y = min(new_room.begin.y, new_room.end.y); y < max(new_room.end.y,new_room.begin.y); y++) {
@@ -345,7 +352,7 @@ point add_to_good_for_room( vector<vector<bool>>* Good_for_room, vector<vector<i
 				} else if (y == new_room.begin.y || y == new_room.end.y - 1) {
 					if ((x == new_room.begin.x && y == new_room.begin.y) || (x == new_room.begin.x && y == new_room.end.y -1) 
 							|| (x == new_room.end.x -1 && y == new_room.begin.y) || (x == new_room.end.x -1 && y == new_room.end.y -1)){
-						(grid -> at(x))[y]  = 6;
+						(grid -> at(x))[y]  = 7;
 					} else {
 						(grid -> at(x))[y]  = 3;
 					}
@@ -471,7 +478,7 @@ setup create_map(int stage) {
 	vector<vector<bool>> Matrix_connection = make_matrix_bool(n_rooms_max, n_rooms_max);
 	vector<vector<bool>> Good_for_room = make_matrix_bool(hauteur_grille, longueur_grille);
 	vector<vector<bool>> Matrix_revealed = make_matrix_bool(hauteur_grille, longueur_grille);
-	vector<room*>  rooms;
+	vector<room>  rooms;
 	for( int i = 0; i < 2; i++) {
 		for ( int j = 0; j < longueur_grille; j++){
 			Good_for_room[i][j] = 1;
@@ -505,7 +512,7 @@ setup create_map(int stage) {
 			return setup {vector<vector<int>> {}, vector<vector<bool>> {}, rooms, false}; 
 		}
 		room new_room = room {begin, end, false};
-		rooms.push_back(&new_room);
+		rooms.push_back(new_room);
 		bool make_path;
 		if (i == n_rooms_max -1) {
 			make_path = false;
@@ -528,31 +535,26 @@ setup create_map(int stage) {
 	return setup {grid, Matrix_revealed, rooms, true};
 }
 
+void add_personage_and_stairs(vector<vector<int>>* grid, vector<room>* rooms) {
+	int number_room_begin = random_int(rooms -> size()) - 1;
+	room room_begin = rooms -> at(number_room_begin);
+	(grid -> at(room_begin.begin.x + 1))[room_begin.begin.y + 1] = 8;
+	int number_room_end = random_int(rooms -> size()) - 1;
+	while ((number_room_end - number_room_begin) == 0) {
+		number_room_end = random_int(rooms -> size()) - 1;
+	}
+	room room_end = rooms -> at(number_room_end);
+	(grid -> at(room_end.end.x - 2))[room_end.end.y - 2] = 7;
+}
+
 setup setup_map(int stage) {
-	setup _setup {vector<vector<int>> {}, vector<vector<bool>> {}, vector<room*> {}, false};
+	setup _setup {vector<vector<int>> {}, vector<vector<bool>> {}, vector<room> {}, false};
 	while (not _setup.it_worked){
 		_setup = create_map(stage);
 	}
 	vector<vector<int>> grid = _setup.map;
-	vector<room*> rooms = _setup.rooms;
-	print(rooms.size());
-	int number_room_begin = random_int(rooms.size()) - 1;
-	print("h1");
-	room room_begin = *(rooms[number_room_begin]);
-	print_P(room_begin.begin);
-	print(number_room_begin);
-	_setup.map[room_begin.begin.x + 1][room_begin.begin.y + 1] = 7;
-	int number_room_end = random_int(rooms.size()) - 1;
-	print("h2");
-	while ((number_room_end - number_room_begin) == 0) {
-		number_room_end = random_int(rooms.size()) - 1;
-	}
-	print("h3");
-	print(number_room_end);
-	room room_end = *(rooms[number_room_end]);
-	print_P(room_end.begin);
-	_setup.map[room_end.end.x - 1][room_end.end.y - 1] = 8;
-	print("h4");
+	vector<room> rooms = _setup.rooms;
+	add_personage_and_stairs(&grid, &rooms);
 	_setup.map = extract(find_extract(&grid), &grid);
 	print_M(&_setup.map);
 	cout << "number of room : " << _setup.rooms.size() << endl; 

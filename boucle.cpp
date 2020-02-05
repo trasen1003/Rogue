@@ -3,18 +3,19 @@
 #include <ncurses.h>
 #include <vector>
 //#include "personnages_def.h"
-#include "personnages.h"
+//#include "personnages.h"
 #include "MapDisplay.h"
 // #include "RandomMapGenerator.h" 
-#include <gen_carte.h>
+#include "gen_carte.h"
+
 using namespace std;
 int main(){
 	int pos [2] = {0,0};
 	//vector<vector<int>> map = Generateur(&pos[0]); //carte des int
-	setup set = setup_map(3);
+	setup set = setup_map(2);
 	vector<vector<int>> map = set.map;
 	cout << "genere" << endl;
-	initscr();
+	/*initscr();
 	noecho();
 	char character;
 	int ref_movement = time(NULL);
@@ -35,6 +36,6 @@ int main(){
 				mvprintw(i, j, "%c",grid[i][j]);
 			}
 		}
-	}
+	}*/
 	return 0;
 }

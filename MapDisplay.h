@@ -12,34 +12,37 @@ vector<vector<char>> display_grid (vector<vector<int>> IntMap){
 
             switch(IntMap[i][j])
             {
-                case -1: // case vide non accessible
+                case 0: // case vide non accessible
                     StrMap[i][j] = ' ';
                     break;
-                case 0: // case vide accessible
+                case 1: // case vide accessible
                     StrMap[i][j] = '.';
                     break;
-                case 1: // mur horizontal
+                case 2: // mur horizontal
                     StrMap[i][j] = '-';
                     break;
-                case 2: // mur vertical
+                case 3: // mur vertical
                     StrMap[i][j] = '|';
                     break;
-                case 3: // porte
+                case 4: // porte
                     StrMap[i][j] = '+';
                     break;
-                case 4: // couloir
+                case 5: // couloir
                     StrMap[i][j] = '#';
                     break;
-                case 5: //passage niveau suivant 
+                case 6: // coin 
+                    StrMap[i][j] = '+';
+                    break;
+                case 7: // passage au niveau suivant 
                     StrMap[i][j] = '=';
                     break;
-                case 6: // personnage 
+                case 8: // personnage
                     StrMap[i][j] = '@';
                     break;
-                case 7: // monstre
+                case 9: //monstre
                     StrMap[i][j] = 'M';
                     break;
-                case 8: //objet
+                case 10: //objet
                     StrMap[i][j] = '*';
                     break;
             }
