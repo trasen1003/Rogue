@@ -2,7 +2,7 @@
 #include <time.h>
 #include <ncurses.h>
 #include <vector>
-//#include "personnages_def.h"
+#include "personnages_def.h"
 //#include "personnages.h"
 #include "MapDisplay.h"
 // #include "RandomMapGenerator.h" 
@@ -15,7 +15,7 @@ int main(){
 	setup set = setup_map(2);
 	vector<vector<int>> map = set.map;
 	cout << "genere" << endl;
-	/*initscr();
+	initscr();
 	noecho();
 	char character;
 	int ref_movement = time(NULL);
@@ -36,6 +36,6 @@ int main(){
 				mvprintw(i, j, "%c",grid[i][j]);
 			}
 		}
-	}*/
+	}
 	return 0;
 }
